@@ -1,0 +1,32 @@
+
+<div *ngIf="blackList">
+    <h2><span>Black List</span> {{blackList.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{blackList.name}}</span>
+        </dd>
+        <dt><span>Ingredient Entry</span></dt>
+        <dd>
+            <span *ngFor="let ingredientEntry of blackList.ingredientEntries; let last = last">
+                <a [routerLink]="['/ingredient-entry', ingredientEntry?.id ]">{{ingredientEntry.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'black-list/'+ blackList.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

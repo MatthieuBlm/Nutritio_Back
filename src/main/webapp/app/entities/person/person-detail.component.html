@@ -1,0 +1,56 @@
+
+<div *ngIf="person">
+    <h2><span>Person</span> {{person.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Email</span></dt>
+        <dd>
+            <span>{{person.email}}</span>
+        </dd>
+        <dt><span>Firstname</span></dt>
+        <dd>
+            <span>{{person.firstname}}</span>
+        </dd>
+        <dt><span>Lastname</span></dt>
+        <dd>
+            <span>{{person.lastname}}</span>
+        </dd>
+        <dt><span>Birthday</span></dt>
+        <dd>
+            <span>{{person.birthday | date:'medium'}}</span>
+        </dd>
+        <dt><span>Stock</span></dt>
+        <dd>
+            <div *ngIf="person.stock">
+                <a [routerLink]="['/stock', person.stock?.id]">{{person.stock?.name}}</a>
+            </div>
+        </dd>
+        <dt><span>Grocerie</span></dt>
+        <dd>
+            <div *ngIf="person.grocerie">
+                <a [routerLink]="['/grocerie', person.grocerie?.id]">{{person.grocerie?.name}}</a>
+            </div>
+        </dd>
+        <dt><span>Black List</span></dt>
+        <dd>
+            <div *ngIf="person.blackList">
+                <a [routerLink]="['/black-list', person.blackList?.id]">{{person.blackList?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'person/'+ person.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

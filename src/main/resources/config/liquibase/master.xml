@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181933_added_entity_Person.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181934_added_entity_Goal.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181935_added_entity_Grocerie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181936_added_entity_BlackList.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181937_added_entity_Ingredient.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181938_added_entity_Stock.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181939_added_entity_Recipe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181940_added_entity_Meal.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181941_added_entity_IngredientEntry.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20180226181933_added_entity_constraints_Person.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181934_added_entity_constraints_Goal.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181935_added_entity_constraints_Grocerie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181936_added_entity_constraints_BlackList.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181938_added_entity_constraints_Stock.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181939_added_entity_constraints_Recipe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181940_added_entity_constraints_Meal.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180226181941_added_entity_constraints_IngredientEntry.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+</databaseChangeLog>

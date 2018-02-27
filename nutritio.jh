@@ -1,0 +1,77 @@
+entity Person { 	email String required, 	firstname String, 	lastname String, 	birthday ZonedDateTime }  
+entity Goal { 	
+date ZonedDateTime,     
+energy Long,    
+protein Long,     
+carbohydrate Long,    
+fat Long,     
+sugar Long,     
+saturatedFat Long,     fibre Long }  
+
+entity Grocerie { 	name String }  
+
+entity BlackList { 	name String }  
+
+entity Ingredient { 	
+name String required,     
+brand String,     
+energy Long required,     
+protein Long required,     
+carbohydrate Long required,     
+fat Long required,     
+sugar Long required,     saturatedFat Long required,     fibre Long required,     category Category required  }  
+
+entity Stock { 	name String }  
+
+entity Recipe { 	name String,     image String }  
+
+entity Meal { 	name String,     date ZonedDateTime }  
+
+entity IngredientEntry { 	amount Integer required,     unit Unit required }  
+
+enum Unit { 	
+	GRAMM,     
+    MILLILITRE,     
+    UNIT,     
+    TEASPOON,     
+    TABLESPOON,     
+    CUP 
+}  
+
+enum Category { 	
+    FRUIT,     
+    VEGETABLE_BEAN,     
+    MEAT_FISH,     
+    MILK_PRODUCT,     
+    DRINK,     
+    GRAIN,     
+    SWEET,     
+    SAUCE_SPICE,     
+    OTHER 
+}  
+
+relationship OneToOne { 	
+    Person{stock(name)} to Stock,     
+    Person{grocerie(name)} to Grocerie,     
+    Person{blackList(name)} to BlackList 
+}  
+
+relationship OneToMany {     
+    Person{meal} to Meal{person(email)},     
+    Person{goal} to Goal{person(email)}
+}  
+
+relationship ManyToOne {    
+	IngredientEntry{ingredient(name)} to Ingredient 
+}  
+
+relationship ManyToMany { 	
+	Meal{recipe(name)} to Recipe{meal(name)},
+    Stock{ingredientEntry} to IngredientEntry{stock(name)},
+    Recipe{ingredientEntry} to IngredientEntry{recipe(name)},     
+    Grocerie{ingredientEntry} to IngredientEntry{grocerie(name)},     
+    BlackList{ingredientEntry} to IngredientEntry{blackList(name)}
+}
+
+paginate IngredientEntry, Ingredient, Goal with pagination
+

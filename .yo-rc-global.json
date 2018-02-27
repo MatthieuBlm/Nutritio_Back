@@ -1,0 +1,7 @@
+{
+  "generator-jhipster:4.13.0": {
+    "promptValues": {
+      "packageName": "com.mac.nutritio"
+    }
+  }
+}

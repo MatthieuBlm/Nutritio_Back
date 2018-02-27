@@ -1,0 +1,166 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myIngredientLabel">Create or edit a Ingredient</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!ingredient.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="ingredient.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="ingredient.name" required/>
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_brand">Brand</label>
+            <input type="text" class="form-control" name="brand" id="field_brand"
+                [(ngModel)]="ingredient.brand" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_energy">Energy</label>
+            <input type="number" class="form-control" name="energy" id="field_energy"
+                [(ngModel)]="ingredient.energy" required/>
+            <div [hidden]="!(editForm.controls.energy?.dirty && editForm.controls.energy?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.energy?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.energy?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_protein">Protein</label>
+            <input type="number" class="form-control" name="protein" id="field_protein"
+                [(ngModel)]="ingredient.protein" required/>
+            <div [hidden]="!(editForm.controls.protein?.dirty && editForm.controls.protein?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.protein?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.protein?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_carbohydrate">Carbohydrate</label>
+            <input type="number" class="form-control" name="carbohydrate" id="field_carbohydrate"
+                [(ngModel)]="ingredient.carbohydrate" required/>
+            <div [hidden]="!(editForm.controls.carbohydrate?.dirty && editForm.controls.carbohydrate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.carbohydrate?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.carbohydrate?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_fat">Fat</label>
+            <input type="number" class="form-control" name="fat" id="field_fat"
+                [(ngModel)]="ingredient.fat" required/>
+            <div [hidden]="!(editForm.controls.fat?.dirty && editForm.controls.fat?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.fat?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.fat?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_sugar">Sugar</label>
+            <input type="number" class="form-control" name="sugar" id="field_sugar"
+                [(ngModel)]="ingredient.sugar" required/>
+            <div [hidden]="!(editForm.controls.sugar?.dirty && editForm.controls.sugar?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.sugar?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.sugar?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_saturatedFat">Saturated Fat</label>
+            <input type="number" class="form-control" name="saturatedFat" id="field_saturatedFat"
+                [(ngModel)]="ingredient.saturatedFat" required/>
+            <div [hidden]="!(editForm.controls.saturatedFat?.dirty && editForm.controls.saturatedFat?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.saturatedFat?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.saturatedFat?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_fibre">Fibre</label>
+            <input type="number" class="form-control" name="fibre" id="field_fibre"
+                [(ngModel)]="ingredient.fibre" required/>
+            <div [hidden]="!(editForm.controls.fibre?.dirty && editForm.controls.fibre?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.fibre?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.fibre?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_category">Category</label>
+            <select class="form-control" name="category" [(ngModel)]="ingredient.category" id="field_category"  required>
+                <option value="FRUIT">FRUIT</option>
+                <option value="VEGETABLE_BEAN">VEGETABLE_BEAN</option>
+                <option value="MEAT_FISH">MEAT_FISH</option>
+                <option value="MILK_PRODUCT">MILK_PRODUCT</option>
+                <option value="DRINK">DRINK</option>
+                <option value="GRAIN">GRAIN</option>
+                <option value="SWEET">SWEET</option>
+                <option value="SAUCE_SPICE">SAUCE_SPICE</option>
+                <option value="OTHER">OTHER</option>
+            </select>
+            <div [hidden]="!(editForm.controls.category?.dirty && editForm.controls.category?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.category?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

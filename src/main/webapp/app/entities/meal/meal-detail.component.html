@@ -1,0 +1,42 @@
+
+<div *ngIf="meal">
+    <h2><span>Meal</span> {{meal.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{meal.name}}</span>
+        </dd>
+        <dt><span>Date</span></dt>
+        <dd>
+            <span>{{meal.date | date:'medium'}}</span>
+        </dd>
+        <dt><span>Recipe</span></dt>
+        <dd>
+            <span *ngFor="let recipe of meal.recipes; let last = last">
+                <a [routerLink]="['/recipe', recipe?.id ]">{{recipe.name}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span>Person</span></dt>
+        <dd>
+            <div *ngIf="meal.person">
+                <a [routerLink]="['/person', meal.person?.id]">{{meal.person?.email}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'meal/'+ meal.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

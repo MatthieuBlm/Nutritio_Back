@@ -1,0 +1,64 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myIngredientEntryLabel">Create or edit a Ingredient Entry</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!ingredientEntry.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="ingredientEntry.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_amount">Amount</label>
+            <input type="number" class="form-control" name="amount" id="field_amount"
+                [(ngModel)]="ingredientEntry.amount" required/>
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.amount?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.amount?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_unit">Unit</label>
+            <select class="form-control" name="unit" [(ngModel)]="ingredientEntry.unit" id="field_unit"  required>
+                <option value="GRAMM">GRAMM</option>
+                <option value="MILLILITRE">MILLILITRE</option>
+                <option value="UNIT">UNIT</option>
+                <option value="TEASPOON">TEASPOON</option>
+                <option value="TABLESPOON">TABLESPOON</option>
+                <option value="CUP">CUP</option>
+            </select>
+            <div [hidden]="!(editForm.controls.unit?.dirty && editForm.controls.unit?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.unit?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_ingredient">Ingredient</label>
+            <select class="form-control" id="field_ingredient" name="ingredient" [(ngModel)]="ingredientEntry.ingredient" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="ingredientOption.id === ingredientEntry.ingredient?.id ? ingredientEntry.ingredient : ingredientOption" *ngFor="let ingredientOption of ingredients; trackBy: trackIngredientById">{{ingredientOption.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

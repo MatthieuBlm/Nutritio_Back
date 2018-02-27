@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span>Meals</span>
+        <button class="btn btn-primary float-right jh-create-entity create-meal" [routerLink]="['/', { outlets: { popup: ['meal-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Meal
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="meals">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Name</span></th>
+            <th><span>Date</span></th>
+            <th><span>Recipe</span></th>
+            <th><span>Person</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let meal of meals ;trackBy: trackId">
+                <td><a [routerLink]="['../meal', meal.id ]">{{meal.id}}</a></td>
+                <td>{{meal.name}}</td>
+                <td>{{meal.date | date:'medium'}}</td>
+                <td>
+                    <span *ngFor="let recipe of meal.recipes; let last = last">
+                            <a class="form-control-static" [routerLink]="['../recipe', recipe?.id ]">{{recipe.name}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td>
+                    <div *ngIf="meal.person">
+                        <a [routerLink]="['../person', meal.person?.id ]" >{{meal.person?.email}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../meal', meal.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'meal/'+ meal.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'meal/'+ meal.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

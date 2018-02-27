@@ -1,0 +1,51 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "person",
+            "otherEntityName": "person",
+            "otherEntityField": "email"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "energy",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "protein",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "carbohydrate",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "fat",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "sugar",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "saturatedFat",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "fibre",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20180226181934",
+    "entityTableName": "goal",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

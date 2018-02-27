@@ -1,0 +1,60 @@
+
+<div *ngIf="goal">
+    <h2><span>Goal</span> {{goal.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Date</span></dt>
+        <dd>
+            <span>{{goal.date | date:'medium'}}</span>
+        </dd>
+        <dt><span>Energy</span></dt>
+        <dd>
+            <span>{{goal.energy}}</span>
+        </dd>
+        <dt><span>Protein</span></dt>
+        <dd>
+            <span>{{goal.protein}}</span>
+        </dd>
+        <dt><span>Carbohydrate</span></dt>
+        <dd>
+            <span>{{goal.carbohydrate}}</span>
+        </dd>
+        <dt><span>Fat</span></dt>
+        <dd>
+            <span>{{goal.fat}}</span>
+        </dd>
+        <dt><span>Sugar</span></dt>
+        <dd>
+            <span>{{goal.sugar}}</span>
+        </dd>
+        <dt><span>Saturated Fat</span></dt>
+        <dd>
+            <span>{{goal.saturatedFat}}</span>
+        </dd>
+        <dt><span>Fibre</span></dt>
+        <dd>
+            <span>{{goal.fibre}}</span>
+        </dd>
+        <dt><span>Person</span></dt>
+        <dd>
+            <div *ngIf="goal.person">
+                <a [routerLink]="['/person', goal.person?.id]">{{goal.person?.email}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'goal/'+ goal.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,62 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "ingredient",
+            "otherEntityName": "ingredient",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "stock",
+            "otherEntityName": "stock",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "ingredientEntry"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "recipe",
+            "otherEntityName": "recipe",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "ingredientEntry"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "grocerie",
+            "otherEntityName": "grocerie",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "ingredientEntry"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "blackList",
+            "otherEntityName": "blackList",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "ingredientEntry"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "amount",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "unit",
+            "fieldType": "Unit",
+            "fieldValues": "GRAMM,MILLILITRE,UNIT,TEASPOON,TABLESPOON,CUP",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180226181941",
+    "entityTableName": "ingredient_entry",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}
