@@ -104,6 +104,19 @@ public class MealResource {
     }
 
     /**
+     * GET  /meals/:email : get the "email"'s person meals.
+     *
+     * @param email the email of the meals to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the meal, or with status 404 (Not Found)
+     */
+    @GetMapping("/meals/{email}")
+    @Timed
+    public List<Meal> getAllMealOf(@PathVariable String email) {
+        log.debug("REST request to get all Meals of : {}", email);
+        return mealRepository.findOneWithEagerRelationships(email);
+    }
+
+    /**
      * DELETE  /meals/:id : delete the "id" meal.
      *
      * @param id the id of the meal to delete

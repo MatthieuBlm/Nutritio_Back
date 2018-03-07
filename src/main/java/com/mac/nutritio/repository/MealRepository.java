@@ -19,4 +19,7 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
     @Query("select meal from Meal meal left join fetch meal.recipes where meal.id =:id")
     Meal findOneWithEagerRelationships(@Param("id") Long id);
 
+    @Query("select meal from Meal meal left join fetch meal.recipes where meal.person.email =:email")
+    Meal findOneWithEagerRelationships(@Param("email") String email);
+
 }
