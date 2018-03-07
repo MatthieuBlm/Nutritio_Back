@@ -113,7 +113,7 @@ public class MealResource {
     @Timed
     public List<Meal> getAllMealOf(@PathVariable String email) {
         log.debug("REST request to get all Meals of : {}", email);
-        return mealRepository.findOneWithEagerRelationships(email);
+        return mealRepository.findAllWithEagerRelationships(email);
     }
 
     /**
