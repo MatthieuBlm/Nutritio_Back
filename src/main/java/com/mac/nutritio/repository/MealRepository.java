@@ -1,11 +1,14 @@
 package com.mac.nutritio.repository;
 
-import com.mac.nutritio.domain.Meal;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import org.springframework.data.jpa.repository.*;
-import org.springframework.data.repository.query.Param;
-import java.util.List;
+import com.mac.nutritio.domain.Meal;
 
 /**
  * Spring Data JPA repository for the Meal entity.
@@ -21,5 +24,8 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
     @Query("select meal from Meal meal left join fetch meal.recipes where meal.person.id =:id")
     List<Meal> findAllWithEagerRelationships(@Param("id") Long id);
+
+    @Query("select meal from Meal meal left join fetch meal.recipes where meal.date between :deb and :fin and meal.person.id =:id")
+	List<Meal> findAllByDateBetweenWithEagerRelationships(Date deb, Date fin, Long id);
 
 }
