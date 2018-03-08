@@ -25,7 +25,4 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
     @Query("select meal from Meal meal left join fetch meal.recipes where meal.person.id =:id")
     List<Meal> findAllWithEagerRelationships(@Param("id") Long id);
 
-    @Query("select meal from Meal meal left join fetch meal.recipes where meal.date between :deb and :fin and meal.person.id =:id")
-	List<Meal> findAllByDateBetweenWithEagerRelationships(Date deb, Date fin, Long id);
-
 }

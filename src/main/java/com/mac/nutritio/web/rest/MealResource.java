@@ -123,21 +123,6 @@ public class MealResource {
         log.debug("REST request to get all Meals of : {}", id);
         return mealRepository.findAllWithEagerRelationships(id);
     }
-    
-    /**
-     * GET  /todaysMeal/:id : get the "id"'s person meals.
-     *
-     * @param id the id of the meals to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the meal, or with status 404 (Not Found)
-     */
-    @GetMapping("/mealsOf/{id}")
-    @Timed
-    public List<Meal> getTodaysMealOf(@PathVariable Long id) {
-        log.debug("REST request to get all Meals of : {}", id);
-        Date deb = new Date("2018-03-05");
-        Date fin = new Date("2018-03-12");
-        return mealRepository.findAllByDateBetweenWithEagerRelationships(deb, fin, id);
-    }
 
     /**
      * DELETE  /meals/:id : delete the "id" meal.
