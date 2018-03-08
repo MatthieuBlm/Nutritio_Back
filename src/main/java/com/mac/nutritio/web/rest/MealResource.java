@@ -111,9 +111,9 @@ public class MealResource {
      */
     @GetMapping("/meals/{email}")
     @Timed
-    public List<Meal> getAllMealOf(@PathVariable String email) {
-        log.debug("REST request to get all Meals of : {}", email);
-        return mealRepository.findAllWithEagerRelationships(email);
+    public List<Meal> getAllMealOf(@PathVariable Long id) {
+        log.debug("REST request to get all Meals of : {}", id);
+        return mealRepository.findAllWithEagerRelationships(id);
     }
 
     /**
