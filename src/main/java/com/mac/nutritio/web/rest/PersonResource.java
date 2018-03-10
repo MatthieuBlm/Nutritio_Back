@@ -1,14 +1,17 @@
 package com.mac.nutritio.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.mac.nutritio.domain.Meal;
 import com.mac.nutritio.domain.Person;
 
+import com.mac.nutritio.repository.MealRepository;
 import com.mac.nutritio.repository.PersonRepository;
 import com.mac.nutritio.web.rest.errors.BadRequestAlertException;
 import com.mac.nutritio.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +19,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +36,9 @@ public class PersonResource {
     private static final String ENTITY_NAME = "person";
 
     private final PersonRepository personRepository;
+
+    @Autowired
+    private MealRepository mealRepository;
 
     public PersonResource(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -102,6 +110,29 @@ public class PersonResource {
         log.debug("REST request to get Person : {}", id);
         Person person = personRepository.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(person));
+    }
+
+    /**
+     * GET  /people/:id : get the "id" person.
+     *
+     * @param id the id of the person to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the person, or with status 404 (Not Found)
+     */
+    @GetMapping("/people/{id}/getTodayIntakes")
+    @Timed
+    public List<Meal> getPersonTodayIntakes(@PathVariable Long id) {
+        log.debug("REST request to get Person today intakes : {}", id);
+        //Person person = personRepository.findOne(id);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        Date deb = calendar.getTime();
+        calendar.set(Calendar.HOUR, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        Date fin = calendar.getTime();
+
+        return mealRepository.findAllByDateBetweenWithEagerRelationships(id, deb, fin);
     }
 
     /**
