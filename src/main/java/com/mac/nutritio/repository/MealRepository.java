@@ -1,5 +1,6 @@
 package com.mac.nutritio.repository;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,6 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
     List<Meal> findAllWithEagerRelationships(@Param("id") Long id);
 
     @Query("select meal from Meal meal left join fetch meal.recipes where meal.date between :dateDeb and :dateFin and meal.person.id =:id")
-    List<Meal> findAllByDateBetweenWithEagerRelationships(@Param("id") Long id, @Param("dateDeb") Date dateDeb, @Param("dateFin") Date dateFin);
+    List<Meal> findAllByDateBetweenWithEagerRelationships(@Param("id") Long id, @Param("dateDeb") ZonedDateTime dateDeb, @Param("dateFin") ZonedDateTime dateFin);
 
 }

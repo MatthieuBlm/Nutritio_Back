@@ -19,6 +19,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -127,10 +129,10 @@ public class PersonResource {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR, 0);
         calendar.set(Calendar.MINUTE, 0);
-        Date deb = calendar.getTime();
+        ZonedDateTime deb = calendar.toInstant().atZone(ZoneId.of("Europe/Paris"));
         calendar.set(Calendar.HOUR, 23);
         calendar.set(Calendar.MINUTE, 59);
-        Date fin = calendar.getTime();
+        ZonedDateTime fin = calendar.toInstant().atZone(ZoneId.of("Europe/Paris"));
 
         return mealRepository.findAllByDateBetweenWithEagerRelationships(id, deb, fin);
     }
