@@ -31,7 +31,7 @@ public class Meal implements Serializable {
     @Column(name = "jhi_date")
     private ZonedDateTime date;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "meal_recipe",
                joinColumns = @JoinColumn(name="meals_id", referencedColumnName="id"),
