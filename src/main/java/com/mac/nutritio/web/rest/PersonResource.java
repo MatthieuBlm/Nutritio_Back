@@ -136,7 +136,7 @@ public class PersonResource {
         ZonedDateTime fin = calendar.toInstant().atZone(ZoneId.of("Europe/Paris"));
 
         List<Meal> meals = mealRepository.findAllByDateBetweenWithEagerRelationships(id, deb, fin);
-        log.debug("########## deb : {}, fin : {}, meals.size() : ", deb, fin, meals.size());
+        log.debug("########## deb : {}, fin : {}, meals.size() : {}", deb, fin, meals.size());
         Intake intake = new Intake();
 
         for (Meal meal : meals) {
