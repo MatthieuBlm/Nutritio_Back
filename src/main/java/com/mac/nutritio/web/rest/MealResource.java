@@ -136,11 +136,9 @@ public class MealResource {
      */
     @GetMapping("/mealsOf/{id}/between/{start}/{end}")
     @Timed
-    public List<Meal> getAllMealOfBetween(@PathVariable Long id,
-                                   @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
-                                   @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end) {
+    public List<Meal> getAllMealOfBetween(@PathVariable Long id, @PathVariable String start,  @PathVariable String end) {
         log.debug("REST request to get all Meals of : {}, between {} and {}", id, start, end);
-        return mealRepository.findAllByDateBetweenWithEagerRelationships(id, start, end);
+        return mealRepository.findAllByDateBetweenWithEagerRelationships(id, ZonedDateTime.parse(start), ZonedDateTime.parse(end));
     }
 
     /**

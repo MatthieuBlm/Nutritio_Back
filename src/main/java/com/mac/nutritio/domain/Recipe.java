@@ -31,7 +31,7 @@ public class Recipe implements Serializable {
     @Column(name = "image")
     private String image;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "recipe_ingredient_entry",
                joinColumns = @JoinColumn(name="recipes_id", referencedColumnName="id"),
