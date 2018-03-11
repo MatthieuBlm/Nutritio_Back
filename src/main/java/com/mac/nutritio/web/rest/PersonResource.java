@@ -124,9 +124,6 @@ public class PersonResource {
     @Timed
     public ResponseEntity<Intake> getPersonTodayIntakes(@PathVariable Long id) {
         log.debug("REST request to get Person today intakes : {}", id);
-        //Person person = personRepository.findOne(id);
-
-        //  2018-03-11T12:00:11.447+01:00 and 2018-03-12T11:59:11.447+01:00
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -139,7 +136,7 @@ public class PersonResource {
         ZonedDateTime fin = calendar.toInstant().atZone(ZoneId.of("Europe/Paris"));
 
         List<Meal> meals = mealRepository.findAllByDateBetweenWithEagerRelationships(id, deb, fin);
-
+        log.debug("########## deb : {}, fin : {}, meals.size() : ", deb, fin, meals.size());
         Intake intake = new Intake();
 
         for (Meal meal : meals) {
