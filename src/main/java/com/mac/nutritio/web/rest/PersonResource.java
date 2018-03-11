@@ -122,7 +122,7 @@ public class PersonResource {
      */
     @GetMapping("/people/{id}/getTodayIntakes")
     @Timed
-    public Intake getPersonTodayIntakes(@PathVariable Long id) {
+    public ResponseEntity<Intake> getPersonTodayIntakes(@PathVariable Long id) {
         log.debug("REST request to get Person today intakes : {}", id);
         //Person person = personRepository.findOne(id);
 
@@ -156,7 +156,7 @@ public class PersonResource {
             }
         }
 
-        return intake;
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(intake));
     }
 
     /**
