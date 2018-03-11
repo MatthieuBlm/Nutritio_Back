@@ -143,17 +143,17 @@ public class PersonResource {
             for (Recipe recipe : meal.getRecipes()) {
                 for (IngredientEntry ingredientEntry : recipe.getIngredientEntries()) {
                     log.debug(">>>>>> {}", ingredientEntry.getIngredient());
-                    intake.addProtein(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getProtein());
-                    intake.addCarbohydrate(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getCarbohydrate());
-                    intake.addSugar(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getSugar());
-                    intake.addFat(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getFat());
-                    intake.addSaturatedFat(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getSaturatedFat());
-                    intake.addFibre(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getFibre());
-                    intake.addEnergy(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getEnergy());
+                    intake.addProtein(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getProtein() / 100);
+                    intake.addCarbohydrate(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getCarbohydrate() / 100);
+                    intake.addSugar(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getSugar() / 100);
+                    intake.addFat(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getFat() / 100);
+                    intake.addSaturatedFat(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getSaturatedFat() / 100);
+                    intake.addFibre(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getFibre() / 100);
+                    intake.addEnergy(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getEnergy() / 100);
                 }
             }
         }
-
+         log.debug("FINAL INTAKE : {}", intake);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(intake));
     }
 
