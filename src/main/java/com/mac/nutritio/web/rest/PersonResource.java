@@ -134,6 +134,8 @@ public class PersonResource {
         calendar.set(Calendar.MINUTE, 59);
         ZonedDateTime fin = calendar.toInstant().atZone(ZoneId.of("Europe/Paris"));
 
+        log.debug("REST request to get Person today intakes between : {} and {}", deb, fin);
+
         return mealRepository.findAllByDateBetweenWithEagerRelationships(id, deb, fin);
     }
 
