@@ -2,12 +2,14 @@ package com.mac.nutritio.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -122,6 +124,23 @@ public class MealResource {
     public List<Meal> getAllMealOf(@PathVariable Long id) {
         log.debug("REST request to get all Meals of : {}", id);
         return mealRepository.findAllWithEagerRelationships(id);
+    }
+
+    /**
+     * GET  /mealsOf/:id/between/:start/:end : get the "id"'s person meals between "start" and "end" date.
+     *
+     * @param id the id of the meals to retrieve
+     * @param start the minimum date of meals to retrieve
+     * @param end the maximum date of meals to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the meal, or with status 404 (Not Found)
+     */
+    @GetMapping("/mealsOf/{id}/between/{start}/{end}")
+    @Timed
+    public List<Meal> getAllMealOfBetween(@PathVariable Long id,
+                                   @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime start,
+                                   @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime end) {
+        log.debug("REST request to get all Meals of : {}, between {} and {}", id, start, end);
+        return mealRepository.findAllByDateBetweenWithEagerRelationships(id, start, end);
     }
 
     /**

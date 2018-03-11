@@ -1,13 +1,13 @@
 package com.mac.nutritio.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.mac.nutritio.domain.Meal;
-import com.mac.nutritio.domain.Person;
+import com.mac.nutritio.domain.*;
 
 import com.mac.nutritio.repository.MealRepository;
 import com.mac.nutritio.repository.PersonRepository;
 import com.mac.nutritio.web.rest.errors.BadRequestAlertException;
 import com.mac.nutritio.web.rest.util.HeaderUtil;
+import com.mac.nutritio.web.rest.util.Intake;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,25 +118,45 @@ public class PersonResource {
      * GET  /people/:id : get the "id" person.
      *
      * @param id the id of the person to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the person, or with status 404 (Not Found)
+     * @return the Intakes with status 200 (OK) and with body the person, or with status 404 (Not Found)
      */
     @GetMapping("/people/{id}/getTodayIntakes")
     @Timed
-    public List<Meal> getPersonTodayIntakes(@PathVariable Long id) {
+    public Intake getPersonTodayIntakes(@PathVariable Long id) {
         log.debug("REST request to get Person today intakes : {}", id);
         //Person person = personRepository.findOne(id);
 
+        //  2018-03-11T12:00:11.447+01:00 and 2018-03-12T11:59:11.447+01:00
+
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
         ZonedDateTime deb = calendar.toInstant().atZone(ZoneId.of("Europe/Paris"));
-        calendar.set(Calendar.HOUR, 23);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
         ZonedDateTime fin = calendar.toInstant().atZone(ZoneId.of("Europe/Paris"));
 
-        log.debug("REST request to get Person today intakes between : {} and {}", deb, fin);
+        List<Meal> meals = mealRepository.findAllByDateBetweenWithEagerRelationships(id, deb, fin);
 
-        return mealRepository.findAllByDateBetweenWithEagerRelationships(id, deb, fin);
+        Intake intake = new Intake();
+
+        for (Meal meal : meals) {
+            for (Recipe recipe : meal.getRecipes()) {
+                for (IngredientEntry ingredientEntry : recipe.getIngredientEntries()) {
+                    intake.addProtein(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getProtein());
+                    intake.addCarbohydrate(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getCarbohydrate());
+                    intake.addSugar(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getSugar());
+                    intake.addFat(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getFat());
+                    intake.addSaturatedFat(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getSaturatedFat());
+                    intake.addFibre(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getFibre());
+                    intake.addEnergy(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getEnergy());
+                }
+            }
+        }
+
+        return intake;
     }
 
     /**
