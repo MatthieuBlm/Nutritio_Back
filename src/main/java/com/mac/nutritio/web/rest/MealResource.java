@@ -2,7 +2,9 @@ package com.mac.nutritio.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -138,7 +140,12 @@ public class MealResource {
     @Timed
     public List<Meal> getAllMealOfBetween(@PathVariable Long id, @PathVariable String start,  @PathVariable String end) {
         log.debug("REST request to get all Meals of : {}, between {} and {}", id, start, end);
-        return mealRepository.findAllByDateBetweenWithEagerRelationships(id, ZonedDateTime.parse(start), ZonedDateTime.parse(end));
+
+        String pattern = "yyyy-MM-dd'T'HH:mm:ss";
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern(pattern).withZone(ZoneId.of("Europe/Paris"));
+
+        log.debug("REST request to get all Meals of date : {}, {}", ZonedDateTime.parse(start, parser), ZonedDateTime.parse(end, parser));
+        return mealRepository.findAllByDateBetweenWithEagerRelationships(id, ZonedDateTime.parse(start, parser), ZonedDateTime.parse(end, parser));
     }
 
     /**
