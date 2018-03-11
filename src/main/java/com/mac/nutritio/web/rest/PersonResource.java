@@ -142,6 +142,7 @@ public class PersonResource {
         for (Meal meal : meals) {
             for (Recipe recipe : meal.getRecipes()) {
                 for (IngredientEntry ingredientEntry : recipe.getIngredientEntries()) {
+                    log.debug(">>>>>> {}", ingredientEntry.getIngredient());
                     intake.addProtein(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getProtein());
                     intake.addCarbohydrate(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getCarbohydrate());
                     intake.addSugar(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getSugar());
