@@ -20,6 +20,6 @@ public interface BlackListRepository extends JpaRepository<BlackList, Long> {
     @Query("select black_list from BlackList black_list left join fetch black_list.ingredientEntries where black_list.id =:id")
     BlackList findOneWithEagerRelationships(@Param("id") Long id);
 
-    @Query("select black_list from Person person where person.id =:id")
+    @Query("select blackList from Person person where person.id =:id")
     BlackList findOneOfWithEagerRelationships(@Param("id") Long id);
 }
