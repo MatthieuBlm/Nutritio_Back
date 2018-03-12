@@ -27,7 +27,7 @@ public class BlackList implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "black_list_ingredient_entry",
                joinColumns = @JoinColumn(name="black_lists_id", referencedColumnName="id"),

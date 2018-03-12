@@ -19,4 +19,7 @@ public interface GrocerieRepository extends JpaRepository<Grocerie, Long> {
     @Query("select grocerie from Grocerie grocerie left join fetch grocerie.ingredientEntries where grocerie.id =:id")
     Grocerie findOneWithEagerRelationships(@Param("id") Long id);
 
+    @Query("select Grocerie from Person person where person.id =:id")
+    Grocerie findOneOfWithEagerRelationships(@Param("id") Long id);
+
 }

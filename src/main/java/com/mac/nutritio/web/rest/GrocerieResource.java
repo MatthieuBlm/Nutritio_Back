@@ -104,6 +104,20 @@ public class GrocerieResource {
     }
 
     /**
+     * GET  /groceries/of/:id : get the person's "id" grocerie.
+     *
+     * @param id the id of the person to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the grocerie, or with status 404 (Not Found)
+     */
+    @GetMapping("/groceries/of/{id}")
+    @Timed
+    public ResponseEntity<Grocerie> getGrocerieOf(@PathVariable Long id) {
+        log.debug("REST request to get Grocerie of : {}", id);
+        Grocerie grocerie = grocerieRepository.findOneOfWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(grocerie));
+    }
+
+    /**
      * DELETE  /groceries/:id : delete the "id" grocerie.
      *
      * @param id the id of the grocerie to delete

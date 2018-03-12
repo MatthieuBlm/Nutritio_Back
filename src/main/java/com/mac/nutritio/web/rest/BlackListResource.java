@@ -104,6 +104,20 @@ public class BlackListResource {
     }
 
     /**
+     * GET  /black-lists/of/:id : get the person's "id" blackList.
+     *
+     * @param id the id of the person to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the blackList, or with status 404 (Not Found)
+     */
+    @GetMapping("/black-lists/of/{id}")
+    @Timed
+    public ResponseEntity<BlackList> getBlackListOf(@PathVariable Long id) {
+        log.debug("REST request to get BlackList of : {}", id);
+        BlackList blackList = blackListRepository.findOneOfWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(blackList));
+    }
+
+    /**
      * DELETE  /black-lists/:id : delete the "id" blackList.
      *
      * @param id the id of the blackList to delete

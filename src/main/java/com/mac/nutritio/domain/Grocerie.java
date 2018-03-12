@@ -27,7 +27,7 @@ public class Grocerie implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "grocerie_ingredient_entry",
                joinColumns = @JoinColumn(name="groceries_id", referencedColumnName="id"),
