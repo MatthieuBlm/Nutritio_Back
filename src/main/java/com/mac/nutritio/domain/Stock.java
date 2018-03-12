@@ -27,7 +27,7 @@ public class Stock implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "stock_ingredient_entry",
                joinColumns = @JoinColumn(name="stocks_id", referencedColumnName="id"),
