@@ -121,7 +121,7 @@ public class MealResource {
      * @param id the id of the meals to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the meal, or with status 404 (Not Found)
      */
-    @GetMapping("/mealsOf/{id}")
+    @GetMapping("/meals/of/{id}")
     @Timed
     public List<Meal> getAllMealOf(@PathVariable Long id) {
         log.debug("REST request to get all Meals of : {}", id);
@@ -129,14 +129,14 @@ public class MealResource {
     }
 
     /**
-     * GET  /mealsOf/:id/between/:start/:end : get the "id"'s person meals between "start" and "end" date.
+     * GET  /meals/of/:id/between/:start/:end : get the "id"'s person meals between "start" and "end" date.
      *
      * @param id the id of the meals to retrieve
      * @param start the minimum date of meals to retrieve
      * @param end the maximum date of meals to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the meal, or with status 404 (Not Found)
      */
-    @GetMapping("/mealsOf/{id}/between/{start}/{end}")
+    @GetMapping("/meals/of/{id}/between/{start}/{end}")
     @Timed
     public List<Meal> getAllMealOfBetween(@PathVariable Long id, @PathVariable String start,  @PathVariable String end) {
         log.debug("REST request to get all Meals of : {}, between {} and {}", id, start, end);

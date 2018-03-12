@@ -19,4 +19,7 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
     @Query("select stock from Stock stock left join fetch stock.ingredientEntries where stock.id =:id")
     Stock findOneWithEagerRelationships(@Param("id") Long id);
 
+    @Query("select stock from Person person where person.id =:id")
+    Stock findOneOfWithEagerRelationships(@Param("id") Long id);
+
 }

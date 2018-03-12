@@ -104,6 +104,20 @@ public class StockResource {
     }
 
     /**
+     * GET  /stocks/of/:id : get the person's "id" stock.
+     *
+     * @param id the id of the person to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the stock, or with status 404 (Not Found)
+     */
+    @GetMapping("/stocks/of/{id}")
+    @Timed
+    public ResponseEntity<Stock> getStockOf(@PathVariable Long id) {
+        log.debug("REST request to get Stock of : {}", id);
+        Stock stock = stockRepository.findOneOfWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(stock));
+    }
+
+    /**
      * DELETE  /stocks/:id : delete the "id" stock.
      *
      * @param id the id of the stock to delete
