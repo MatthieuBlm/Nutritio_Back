@@ -128,7 +128,6 @@ public class PersonResource {
     @Timed
     public ResponseEntity<Intake> getPersonTodayIntakes(@PathVariable Long id) {
         log.debug("REST request to get Person today intakes : {}", id);
-
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(this.personService.getIntake(id)));
     }
 
@@ -142,20 +141,7 @@ public class PersonResource {
     @Timed
     public List<Meal> getPersonMealSuggestions(@PathVariable Long id) {
         log.debug("REST request to get Person today intakes : {}", id);
-
-        // Récuperer Intakes
-        // Récupérer toute les recettes
-        // Récupérer le stock de la personne
-
-        // Calculer la distance entre chaque plat et les intakes
-        // Calculer la distance entre chaque plat et le stock
-
-        // Faire la somme des distance
-
-        // retourner la liste de repas par distance croissante
-
-
-        return null;
+        return personService.getMealSuggestions(id);
     }
 
     /**
