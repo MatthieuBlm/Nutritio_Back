@@ -5,6 +5,7 @@ import com.mac.nutritio.domain.*;
 
 import com.mac.nutritio.repository.MealRepository;
 import com.mac.nutritio.repository.PersonRepository;
+import com.mac.nutritio.service.PersonService;
 import com.mac.nutritio.web.rest.errors.BadRequestAlertException;
 import com.mac.nutritio.web.rest.util.HeaderUtil;
 import com.mac.nutritio.web.rest.util.Intake;
@@ -39,11 +40,14 @@ public class PersonResource {
 
     private final PersonRepository personRepository;
 
-    @Autowired
-    private MealRepository mealRepository;
+    private final MealRepository mealRepository;
 
-    public PersonResource(PersonRepository personRepository) {
+    private final PersonService personService;
+
+    public PersonResource(PersonRepository personRepository, MealRepository mealRepository, PersonService personService) {
         this.personRepository = personRepository;
+        this.mealRepository = mealRepository;
+        this.personService = personService;
     }
 
     /**
@@ -125,36 +129,33 @@ public class PersonResource {
     public ResponseEntity<Intake> getPersonTodayIntakes(@PathVariable Long id) {
         log.debug("REST request to get Person today intakes : {}", id);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        ZonedDateTime deb = calendar.toInstant().atZone(ZoneId.of("Europe/Paris"));
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        ZonedDateTime fin = calendar.toInstant().atZone(ZoneId.of("Europe/Paris"));
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(this.personService.getIntake(id)));
+    }
 
-        List<Meal> meals = mealRepository.findAllByDateBetweenWithEagerRelationships(id, deb, fin);
-        log.debug("########## deb : {}, fin : {}, meals.size() : {}", deb, fin, meals.size());
-        Intake intake = new Intake();
+    /**
+     * GET  /people/:id : get the "id" person.
+     *
+     * @param id the id of the person to retrieve
+     * @return the Intakes with status 200 (OK) and with body the person, or with status 404 (Not Found)
+     */
+    @GetMapping("/people/{id}/getTodayIntakes")
+    @Timed
+    public List<Meal> getPersonMealSuggestions(@PathVariable Long id) {
+        log.debug("REST request to get Person today intakes : {}", id);
 
-        for (Meal meal : meals) {
-            for (Recipe recipe : meal.getRecipes()) {
-                for (IngredientEntry ingredientEntry : recipe.getIngredientEntries()) {
-                    log.debug(">>>>>> {}", ingredientEntry.getIngredient());
-                    intake.addProtein(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getProtein() / 100);
-                    intake.addCarbohydrate(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getCarbohydrate() / 100);
-                    intake.addSugar(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getSugar() / 100);
-                    intake.addFat(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getFat() / 100);
-                    intake.addSaturatedFat(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getSaturatedFat() / 100);
-                    intake.addFibre(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getFibre() / 100);
-                    intake.addEnergy(ingredientEntry.getAmount() * ingredientEntry.getIngredient().getEnergy() / 100);
-                }
-            }
-        }
-         log.debug("FINAL INTAKE : {}", intake);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(intake));
+        // Récuperer Intakes
+        // Récupérer toute les recettes
+        // Récupérer le stock de la personne
+
+        // Calculer la distance entre chaque plat et les intakes
+        // Calculer la distance entre chaque plat et le stock
+
+        // Faire la somme des distance
+
+        // retourner la liste de repas par distance croissante
+
+
+        return null;
     }
 
     /**
