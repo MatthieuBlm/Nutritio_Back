@@ -80,16 +80,16 @@ public class PersonService {
         Stock stock = stockRepository.findOneOfWithEagerRelationships(id);
 
         // Calculer la distance entre chaque plat et les intakes
-        Map<Long, Long> distanceIntakes = this.calculateIntakeDistance(recipes, intake);
+        // Map<Long, Long> distanceIntakes = this.calculateIntakeDistance(recipes, intake);
 
         // Calculer la distance entre chaque plat et le stock
         Map<Long, Long> distanceStock = this.calculateStockDistance(recipes, stock);
 
         // Faire la somme des distance
         Map<Long, Long>  distanceSum = new HashMap<>();
-        for (Map.Entry<Long, Long> entry : distanceIntakes.entrySet()) {
+        for (Map.Entry<Long, Long> entry : distanceStock.entrySet()) {
             long sum = entry.getValue();
-            sum += distanceStock.get(entry.getKey());
+            //sum += distanceIntakes.get(entry.getKey());
             distanceSum.put(entry.getKey(), sum);
         }
 
