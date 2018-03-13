@@ -133,12 +133,12 @@ public class PersonResource {
     }
 
     /**
-     * GET  /people/:id : get the "id" person.
+     * GET  /people/:id/getSuggestions : get the "id" person meal suggestion.
      *
-     * @param id the id of the person to retrieve
+     * @param id the id of the person who the suggestion are searched for
      * @return the Intakes with status 200 (OK) and with body the person, or with status 404 (Not Found)
      */
-    @GetMapping("/people/{id}/getTodayIntakes")
+    @GetMapping("/people/{id}/getSuggestions")
     @Timed
     public List<Meal> getPersonMealSuggestions(@PathVariable Long id) {
         log.debug("REST request to get Person today intakes : {}", id);
