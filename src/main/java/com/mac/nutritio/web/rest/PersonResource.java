@@ -22,10 +22,7 @@ import java.net.URISyntaxException;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing Person.
@@ -139,7 +136,7 @@ public class PersonResource {
      */
     @GetMapping("/people/{id}/getSuggestions")
     @Timed
-    public List<Meal> getPersonMealSuggestions(@PathVariable Long id) {
+    public Map<Long, Long> getPersonMealSuggestions(@PathVariable Long id) {
         log.debug("REST request to get Person today intakes : {}", id);
         return personService.getMealSuggestions(id);
     }
