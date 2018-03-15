@@ -110,6 +110,20 @@ public class GoalResource {
         Goal goal = goalRepository.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(goal));
     }
+    
+    /**
+     * GET  /goals/of/:id : get the person's "id" goal.
+     *
+     * @param id the id of the person to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the goal, or with status 404 (Not Found)
+     */
+    @GetMapping("/goals/{id}")
+    @Timed
+    public ResponseEntity<Goal> getGoalOf(@PathVariable Long id) {
+        log.debug("REST request to get Goal of : {}", id);
+        Goal goal = goalRepository.findOneWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(goal));
+    }
 
     /**
      * DELETE  /goals/:id : delete the "id" goal.
