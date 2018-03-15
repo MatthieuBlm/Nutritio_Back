@@ -117,7 +117,7 @@ public class GoalResource {
      * @param id the id of the person to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the goal, or with status 404 (Not Found)
      */
-    @GetMapping("/goals/{id}")
+    @GetMapping("/goals/of/{id}")
     @Timed
     public ResponseEntity<Goal> getGoalOf(@PathVariable Long id) {
         log.debug("REST request to get Goal of : {}", id);
