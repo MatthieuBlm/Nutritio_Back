@@ -68,14 +68,18 @@ public class PersonService {
         return intake;
     }
 
-    public Map<Long, Long> getMealSuggestions(Long id) {
+    public List<ScoredRecipe> getRecipeSuggestions(Long id) {
         log.debug("Get meals suggesitons for : {}", id);
-        List<Meal> suggestion = new ArrayList<>();
+        List<ScoredRecipe> suggestion = new ArrayList<>();
+        Map<Long, Recipe> mapIdRecipe = new HashMap<>();
 
         // Récuperer Intakes
         Intake intake = this.getIntake(id);
         // Récupérer toute les recettes
         List<Recipe> recipes = recipeRepository.findAll();
+        for (Recipe recipe : recipes) {
+        	mapIdRecipe.put(recipe.getId(), recipe);
+		}
         // Récupérer le stock de la personne
         Stock stock = stockRepository.findOneOfWithEagerRelationships(id);
 
@@ -91,9 +95,12 @@ public class PersonService {
             long sum = entry.getValue();
             //sum += distanceIntakes.get(entry.getKey());
             distanceSum.put(entry.getKey(), sum);
+            
+            suggestion.add(new ScoredRecipe(sum, mapIdRecipe.get(entry.getKey())));
         }
-
-        return distanceSum;
+        
+        
+        return suggestion;
     }
 
     private Map<Long, Long> calculateIntakeDistance(List<Recipe> recipes, Intake personIntake) {

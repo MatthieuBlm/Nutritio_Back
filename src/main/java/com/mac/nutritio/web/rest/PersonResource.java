@@ -136,9 +136,9 @@ public class PersonResource {
      */
     @GetMapping("/people/{id}/getSuggestions")
     @Timed
-    public Map<Long, Long> getPersonMealSuggestions(@PathVariable Long id) {
+    public List<ScoredRecipe> getPersonMealSuggestions(@PathVariable Long id) {
         log.debug("REST request to get Person today intakes : {}", id);
-        return personService.getMealSuggestions(id);
+        return personService.getRecipeSuggestions(id);
     }
 
     /**
