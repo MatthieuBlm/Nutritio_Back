@@ -1,5 +1,5 @@
 projectKey=nutritio_back
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/nutritio_back
-ceTaskId=AWIqJRnRwXJa9aYmq19n
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AWIqJRnRwXJa9aYmq19n
+ceTaskId=AWIuYnOSmauNfUZuLQ6R
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWIuYnOSmauNfUZuLQ6R
